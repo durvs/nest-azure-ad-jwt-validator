@@ -51,7 +51,10 @@ export class AzureActiveDirectoryGuard implements CanActivate {
     return (!!token ? token.toString() : '').trim().split(' ').pop();
   }
 
-  private matchRoles(roles: string[], usersRoles: string[]) {
+  private matchRoles(roles: string[], usersRoles?: string[]) {
+    
+    if(!usersRoles) return false;
+    
     const userRolesLower = usersRoles.map((key) => key.toLowerCase());
     for (const role of roles) {
       if (userRolesLower.includes(role.toLowerCase())) {
